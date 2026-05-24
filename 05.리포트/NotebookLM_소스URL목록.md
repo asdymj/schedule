@@ -2,7 +2,7 @@
 
 **대상 저장소**: https://github.com/asdymj/schedule
 **기준 브랜치**: main
-**총 소스 수**: 17 (W1~W3 산출물 16 + PRD)
+**총 소스 수**: 23 (산출물 16 + PRD + 통합자료실 가이드 6)
 
 ---
 
@@ -32,9 +32,16 @@ https://raw.githubusercontent.com/asdymj/schedule/main/03.%EA%B5%AC%ED%98%84%EB%
 https://raw.githubusercontent.com/asdymj/schedule/main/01.%EA%B4%80%EB%A6%AC%EB%AC%B8%EC%84%9C/%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md
 https://raw.githubusercontent.com/asdymj/schedule/main/04.%EA%B2%80%EC%88%98%EB%AC%B8%EC%84%9C/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.md
 https://raw.githubusercontent.com/asdymj/schedule/main/CLAUDE.md
+https://raw.githubusercontent.com/asdymj/schedule/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/README.md
+https://raw.githubusercontent.com/asdymj/schedule/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EA%B3%A0%EA%B0%9D%EC%9E%90%EB%A3%8C/README.md
+https://raw.githubusercontent.com/asdymj/schedule/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EC%A0%95%EC%B1%85%EC%9E%90%EB%A3%8C/README.md
+https://raw.githubusercontent.com/asdymj/schedule/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EC%9D%B8%ED%94%84%EB%9D%BC%EC%9E%90%EB%A3%8C/README.md
+https://raw.githubusercontent.com/asdymj/schedule/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%ED%9A%8C%EC%9D%98%EB%A1%9D/README.md
+https://raw.githubusercontent.com/asdymj/schedule/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C/README.md
 ```
 
 > raw.githubusercontent.com URL은 NotebookLM이 가져올 때 plain text로 인식 → 코드 블록·표·Mermaid 다이어그램이 깔끔하게 보존됨
+> 통합자료실 README들은 **자료 등록 가이드**로서 NotebookLM이 어떤 자료가 어디에 들어가는지 맥락 파악에 사용됨
 
 ---
 
@@ -58,6 +65,12 @@ https://github.com/asdymj/schedule/blob/main/03.%EA%B5%AC%ED%98%84%EB%AC%B8%EC%8
 https://github.com/asdymj/schedule/blob/main/01.%EA%B4%80%EB%A6%AC%EB%AC%B8%EC%84%9C/%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md
 https://github.com/asdymj/schedule/blob/main/04.%EA%B2%80%EC%88%98%EB%AC%B8%EC%84%9C/%ED%85%8C%EC%8A%A4%ED%8A%B8%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4.md
 https://github.com/asdymj/schedule/blob/main/CLAUDE.md
+https://github.com/asdymj/schedule/blob/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/README.md
+https://github.com/asdymj/schedule/blob/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EA%B3%A0%EA%B0%9D%EC%9E%90%EB%A3%8C/README.md
+https://github.com/asdymj/schedule/blob/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EC%A0%95%EC%B1%85%EC%9E%90%EB%A3%8C/README.md
+https://github.com/asdymj/schedule/blob/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EC%9D%B8%ED%94%84%EB%9D%BC%EC%9E%90%EB%A3%8C/README.md
+https://github.com/asdymj/schedule/blob/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%ED%9A%8C%EC%9D%98%EB%A1%9D/README.md
+https://github.com/asdymj/schedule/blob/main/00.%ED%86%B5%ED%95%A9%EC%9E%90%EB%A3%8C%EC%8B%A4/%EC%B0%B8%EA%B3%A0%EC%9E%90%EB%A3%8C/README.md
 ```
 
 ---
@@ -83,6 +96,17 @@ https://github.com/asdymj/schedule/blob/main/CLAUDE.md
 | 14 | 중간보고서 | 01.관리문서/중간보고서.md |
 | 15 | 테스트시나리오 | 04.검수문서/테스트시나리오.md |
 | - | CLAUDE.md (규칙·도메인 용어 참고) | CLAUDE.md |
+
+### 통합자료실 (자료 등록 가이드)
+
+| # | 폴더 | 경로 | 용도 |
+|---|------|------|------|
+| 17 | 통합자료실 메인 | 00.통합자료실/README.md | NotebookLM 연동 개요 |
+| 18 | 고객자료 | 00.통합자료실/고객자료/README.md | RFP, 인터뷰, 페르소나 검증 |
+| 19 | 정책자료 | 00.통합자료실/정책자료/README.md | 약관, 개인정보, OAuth 정책 |
+| 20 | 인프라자료 | 00.통합자료실/인프라자료/README.md | Vercel/Supabase 실제 설정 캡처 |
+| 21 | 회의록 | 00.통합자료실/회의록/README.md | 킥오프·주간·리뷰 회의 |
+| 22 | 참고자료 | 00.통합자료실/참고자료/README.md | NLM 동기화 자료 |
 
 ---
 
