@@ -1,0 +1,10 @@
+{
+  "name": "모먼토 (Momento)",
+  "short_name": "모먼토",
+  "description": "오늘의 일정을, 내일의 추억으로",
+  "start_url": "/home",
+  "display": "standalone",
+  "background_color": "#FFF8F2",
+  "theme_color": "#FF8FA3",
+  "icons": []
+}

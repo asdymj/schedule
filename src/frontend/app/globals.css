@@ -1,0 +1,126 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 데스크톱 브라우저에서 모바일 화면을 검수하기 위한 디바이스 프레임.
+   실제 모바일 기기(좁은 뷰포트)에서는 프레임 없이 전체 화면으로 렌더링됩니다. */
+@media (min-width: 640px) {
+  .device-frame {
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface-sunken);
+    padding: 32px 0;
+  }
+
+  .device-frame__screen {
+    position: relative;
+    width: 390px;
+    height: 844px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background: var(--color-bg);
+    border: 10px solid #1a1a1a;
+    border-radius: 44px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    /* transform은 fixed/absolute 자손의 containing block을 이 요소로 고정시켜
+       모달·팝업·플로팅 버튼이 프레임을 벗어나 화면 전체에 깔리는 것을 방지합니다. */
+    transform: translateZ(0);
+  }
+}
+
+/* 디자인스타일가이드(#13) §3 컬러 토큰 — 라이트 모드 기본값 */
+:root {
+  --color-primary: #FF8FA3;
+  --color-primary-dark: #E57389;
+  --color-primary-light: #FFE3E9;
+  --color-secondary: #B5A3FF;
+  --color-accent: #FFD66B;
+
+  --color-bg: #FFF8F2;
+  --color-surface: #FFFFFF;
+  --color-surface-sunken: #FBF1E9;
+  --color-overlay: rgba(0, 0, 0, 0.4);
+
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B6B6B;
+  --color-text-tertiary: #9E9E9E;
+  --color-text-on-primary: #FFFFFF;
+
+  --color-border: #ECECEC;
+  --color-border-strong: #D6D6D6;
+
+  --color-success: #34C759;
+  --color-warning: #FFB020;
+  --color-danger: #FF3B30;
+  --color-info: #5AA9FF;
+
+  /* 그룹 색상 팔레트 8종 (§3.5) */
+  --color-group-1: #FF8FA3;
+  --color-group-2: #B5A3FF;
+  --color-group-3: #FFD66B;
+  --color-group-4: #6BD6B5;
+  --color-group-5: #7EC8FF;
+  --color-group-6: #FFB48F;
+  --color-group-7: #FF8FC8;
+  --color-group-8: #A8C686;
+
+  --font-pretendard: 'Pretendard', -apple-system, 'Apple SD Gothic Neo', sans-serif;
+  --font-handwriting: 'Cafe24Ohsquare', 'Pretendard', cursive;
+}
+
+/* 다크 모드 토큰 (§3.2~3.4) — 시스템 자동 전환 + 수동 전환(.dark / [data-theme="dark"]) 모두 지원 */
+[data-theme='dark'],
+.dark {
+  --color-bg: #1A1A1A;
+  --color-surface: #242424;
+  --color-surface-sunken: #141414;
+  --color-overlay: rgba(0, 0, 0, 0.6);
+
+  --color-text-primary: #F5F5F5;
+  --color-text-secondary: #A0A0A0;
+  --color-text-tertiary: #707070;
+
+  --color-border: #333333;
+  --color-border-strong: #454545;
+
+  --color-danger: #FF453A;
+  --color-primary-light: #3A2A2E;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #1A1A1A;
+    --color-surface: #242424;
+    --color-surface-sunken: #141414;
+    --color-overlay: rgba(0, 0, 0, 0.6);
+    --color-text-primary: #F5F5F5;
+    --color-text-secondary: #A0A0A0;
+    --color-text-tertiary: #707070;
+    --color-border: #333333;
+    --color-border-strong: #454545;
+    --color-danger: #FF453A;
+    --color-primary-light: #3A2A2E;
+  }
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-pretendard);
+}
+
+/* 접근성: prefers-reduced-motion 존중 (§9.2) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

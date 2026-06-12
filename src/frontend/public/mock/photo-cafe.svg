@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480">
+  <defs>
+    <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7EC8FF"/>
+      <stop offset="100%" stop-color="#B5A3FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="480" height="480" fill="url(#g2)"/>
+  <rect x="80" y="280" width="320" height="120" rx="16" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="150" cy="170" r="60" fill="rgba(255,255,255,0.4)"/>
+  <text x="240" y="245" text-anchor="middle" font-family="sans-serif" font-size="30" font-weight="700" fill="#1A1A1A">☕ 카페</text>
+  <text x="240" y="350" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#1A1A1A" opacity="0.75">함께한 순간</text>
+</svg>

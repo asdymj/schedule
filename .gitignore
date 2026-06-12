@@ -1,0 +1,28 @@
+# AP-Key (민감 정보 포함)
+.*[Kk]ey*
+# 단, template 파일은 commit 대상 (실제 키 없음)
+!.AP-key.template.md
+
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+
+# Environment
+.env
+.env.local
+
+# 별도 저장소 (자체 .git 보유, 강의 자료)
+AP-Lecture/
+
+# Claude Code 로컬 설정
+.claude/settings.local.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
