@@ -7,11 +7,11 @@ import { cn } from '@/lib/utils';
 
 // 화면설계서 §3.3 S-COMMON-HOME 등 — Bottom Tab + 중앙 FAB. 라우트 활성 표시는 클라이언트 훅(usePathname) 필요.
 const TABS = [
-  { href: '/home', label: '캘린더', icon: Calendar },
-  { href: '/archive', label: '피드', icon: Newspaper },
+  { href: '/home', label: '캘린더', icon: Calendar, isFab: false },
+  { href: '/archive', label: '피드', icon: Newspaper, isFab: false },
   { href: '/g/g-001/e/new', label: '추가', icon: Plus, isFab: true },
-  { href: '/gallery', label: '갤러리', icon: ImageIcon },
-  { href: '/me', label: '마이', icon: User },
+  { href: '/gallery', label: '갤러리', icon: ImageIcon, isFab: false },
+  { href: '/me', label: '마이', icon: User, isFab: false },
 ] as const;
 
 export function BottomTab() {
