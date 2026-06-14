@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { SocialLoginButtons } from '@/components/auth/social-login-buttons';
 
 // SCR-ID: S-COMMON-LOGIN — 화면설계서 §3.1
@@ -17,10 +16,6 @@ export default function LoginPage() {
       </div>
 
       <SocialLoginButtons />
-
-      <Link href="/home" className="text-caption text-text-secondary underline underline-offset-4">
-        로그인 없이 둘러보기
-      </Link>
 
       <p className="text-caption text-text-tertiary">
         <a href="#" className="underline">서비스 이용약관</a> · <a href="#" className="underline">개인정보처리방침</a>

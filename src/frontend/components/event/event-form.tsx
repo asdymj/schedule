@@ -3,31 +3,83 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui';
+import type { CalendarEvent } from '@/types';
 
 // SCR-ID: S-EVENT-NEW / S-EVENT-EDIT — 화면설계서 §6.1, §6.3
 // 폼 입력·검증 상태(useState) + useSearchParams(쿼리 prefill) 사용 → 클라이언트 leaf, 부모는 <Suspense> 래핑.
-export function EventForm({ groupId, prefillDate }: { groupId: string; prefillDate?: string }) {
+// event prop이 있으면 수정 모드(S-EVENT-EDIT)로 동작 — 기존 값을 prefill하고 저장 후 상세화면으로 이동.
+export function EventForm({
+  groupId,
+  prefillDate,
+  event,
+}: {
+  groupId: string;
+  prefillDate?: string;
+  event?: CalendarEvent;
+}) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const date = prefillDate ?? searchParams.get('d') ?? new Date().toISOString().slice(0, 10);
+  const date = event ? event.startAt.slice(0, 10) : prefillDate ?? searchParams.get('d') ?? new Date().toISOString().slice(0, 10);
 
-  const [title, setTitle] = useState('');
-  const [allDay, setAllDay] = useState(false);
-  const [isPrivate, setIsPrivate] = useState(false);
-  const [start, setStart] = useState('14:00');
-  const [end, setEnd] = useState('17:00');
-  const [location, setLocation] = useState('');
-  const [memo, setMemo] = useState('');
+  const [title, setTitle] = useState(event?.title ?? '');
+  const [allDay, setAllDay] = useState(event?.isAllDay ?? false);
+  const [isPrivate, setIsPrivate] = useState(event?.isPrivate ?? false);
+  const [start, setStart] = useState(event ? event.startAt.slice(11, 16) : '14:00');
+  const [end, setEnd] = useState(event ? event.endAt.slice(11, 16) : '17:00');
+  const [location, setLocation] = useState(event?.location?.name ?? '');
+  const [memo, setMemo] = useState(event?.memo ?? '');
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const titleValid = title.trim().length >= 1 && title.trim().length <= 50;
   const timeValid = allDay || start < end;
   const valid = titleValid && timeValid;
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!valid) return;
-    // 목업 단계: POST /api/groups/{gid}/events 연동 지점. 생성 후 그룹 캘린더로 이동.
-    router.push(`/g/${groupId}/cal/month`);
+    if (!valid || submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+
+    const startAt = `${date}T${allDay ? '00:00' : start}:00+09:00`;
+    const endAt = `${date}T${allDay ? '23:59' : end}:00+09:00`;
+
+    try {
+      const res = await fetch(
+        event ? `/api/groups/${groupId}/events/${event.id}` : `/api/groups/${groupId}/events`,
+        {
+          method: event ? 'PATCH' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: title.trim(),
+            startAt,
+            endAt,
+            isAllDay: allDay,
+            isPrivate,
+            memo: memo.trim() || undefined,
+            location: location.trim() || undefined,
+          }),
+        },
+      );
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        setError(body?.error?.message ?? '저장에 실패했어요. 다시 시도해주세요.');
+        setSubmitting(false);
+        return;
+      }
+
+      if (event) {
+        router.push(`/g/${groupId}/e/${event.id}`);
+      } else {
+        router.push(`/g/${groupId}/cal/month`);
+      }
+      router.refresh();
+    } catch {
+      setError('저장에 실패했어요. 네트워크 상태를 확인해주세요.');
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -98,7 +150,10 @@ export function EventForm({ groupId, prefillDate }: { groupId: string; prefillDa
       </div>
 
       <div className="fixed inset-x-0 bottom-0 border-t border-border bg-surface px-4 py-3">
-        <Button type="submit" size="lg" disabled={!valid}>저장</Button>
+        {error && <p className="mb-2 text-caption text-danger">⚠ {error}</p>}
+        <Button type="submit" size="lg" disabled={!valid || submitting}>
+          {submitting ? '저장 중…' : '저장'}
+        </Button>
       </div>
     </form>
   );

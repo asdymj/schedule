@@ -26,3 +26,6 @@ Thumbs.db
 # IDE
 .vscode/settings.json
 .idea/
+
+# 로컬 일정 저장소 (Supabase events 테이블 미구축 시 폴백) - src/frontend/lib/mock/events.ts
+src/frontend/.data/

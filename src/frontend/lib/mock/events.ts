@@ -1,4 +1,6 @@
-import type { CalendarEvent, MapPin } from '@/types';
+import fs from 'fs';
+import path from 'path';
+import type { CalendarEvent, MapPin, Reaction } from '@/types';
 
 // 화면설계서 §5.1 S-CAL-MONTH, §6.2 S-EVENT-DETAIL, §6.4 S-EVENT-EDITOR 와이어프레임 기반 목업.
 
@@ -104,10 +106,60 @@ export const mockMapPins: MapPin[] = [
   { id: 'pin-003', name: '연남동 브런치 카페', address: '서울 마포구 연남동', lat: 37.5636, lng: 126.9251, visitCount: 1, lastVisitedAt: '2026-04-22' },
 ];
 
+// Supabase events 테이블 미구축(M1) 동안의 파일 기반 폴백 저장소.
+// Next.js는 라우트마다 모듈을 별도로 번들링해 인메모리 배열을 공유하지 못하므로,
+// API Route에서 생성/수정한 일정은 .data/events-store.json에 적재하고
+// findEventsByGroupId/findEventById에서 이 파일과 mockEvents를 병합해 반환한다.
+const STORE_PATH = path.join(process.cwd(), '.data', 'events-store.json');
+
+function readStore(): CalendarEvent[] {
+  try {
+    return JSON.parse(fs.readFileSync(STORE_PATH, 'utf-8'));
+  } catch {
+    return [];
+  }
+}
+
+function writeStore(events: CalendarEvent[]): void {
+  fs.mkdirSync(path.dirname(STORE_PATH), { recursive: true });
+  fs.writeFileSync(STORE_PATH, JSON.stringify(events, null, 2));
+}
+
 export function findEventsByGroupId(groupId: string): CalendarEvent[] {
-  return mockEvents.filter((e) => e.groupId === groupId);
+  const store = readStore();
+  const overrides = new Map(store.map((e) => [e.id, e]));
+  const seed = mockEvents.map((e) => overrides.get(e.id) ?? e);
+  const added = store.filter((e) => !mockEvents.some((m) => m.id === e.id));
+  return [...added, ...seed].filter((e) => e.groupId === groupId);
 }
 
 export function findEventById(id: string): CalendarEvent | undefined {
-  return mockEvents.find((e) => e.id === id);
+  return readStore().find((e) => e.id === id) ?? mockEvents.find((e) => e.id === id);
+}
+
+export function addEvent(event: CalendarEvent): void {
+  const store = readStore();
+  store.unshift(event);
+  writeStore(store);
+}
+
+export function updateEvent(id: string, patch: Partial<CalendarEvent>): CalendarEvent | undefined {
+  const store = readStore();
+  const existing = store.find((e) => e.id === id) ?? mockEvents.find((e) => e.id === id);
+  if (!existing) return undefined;
+
+  const updated = { ...existing, ...patch };
+  const index = store.findIndex((e) => e.id === id);
+  if (index === -1) store.push(updated);
+  else store[index] = updated;
+  writeStore(store);
+  return updated;
+}
+
+export function emptyReactions(): Reaction[] {
+  return (['heart', 'clap', 'laugh', 'sob', 'wow', 'fire'] as const).map((type) => ({
+    type,
+    count: 0,
+    reactedByMe: false,
+  }));
 }
